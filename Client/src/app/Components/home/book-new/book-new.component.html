@@ -1,0 +1,66 @@
+<div class="mainDiv">
+    <h2>New material:</h2>
+
+    <div>
+        Material name:
+        <input type="text" [(ngModel)]="bookName" (change)="resetError()">
+        <br><br>
+
+        Type:
+        <select [(ngModel)]="type" (change)="resetError()">
+            <option value="0"></option>
+            <option value="1">Book</option>
+            <option value="2">Magazine</option>
+            <option value="3">Newspaper</option>
+        </select>
+        <br><br>
+
+        Language:
+        <select [(ngModel)]="language" (change)="resetError()">
+            <option value="0"></option>
+            <option *ngFor="let lang of languageList" value="{{lang.language_id}}">{{lang.name}}</option>
+            <option value="-1">other</option>
+        </select>
+        &nbsp;
+        <button *ngIf="language > 0" class="deleteBtn" id="deleteLang" (click)="deleteLanguage()">
+            Remove language
+        </button>
+        <br>
+        <span *ngIf="language==-1">
+            <br>
+            <input type="text" [(ngModel)]="newLanguage" placeholder="Add new language" (change)="resetError()">
+            &nbsp;
+            <button (click)="addNewLanguage()">+</button>
+            <br>
+        </span>
+        <br>
+
+        Total pages:
+        <input type="number" [(ngModel)]="pages" (change)="resetError()">
+        <br><br>
+
+        <!-- <input type="checkbox" (change)="resetError()" [(ngModel)]="showPages">
+        Already have processed pages?
+        <br><br>
+
+        <div *ngIf="showPages">
+            Pages for QA:
+            <input type="text" (change)="resetError()" [(ngModel)]="qaPages">
+            <br><br>
+            Pages for DEV:
+            <input type="text" (change)="resetError()" [(ngModel)]="devPages">
+            <br><br>
+        </div> -->
+
+        <div id="postDiv">
+            <button class="confirmBtn" (click)="addNewBook()">Confirm</button>
+        </div>
+    </div>
+
+</div>
+<div *ngIf="error"><br>
+    <span class="errorSpn">{{error}}</span>
+</div>
+<div *ngIf="successMsg"><br>
+    <span class="successSpn">Book added successfully!</span>
+</div>

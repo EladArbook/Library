@@ -1,0 +1,63 @@
+<div id="registerPage">
+
+    <div id="header" (click)="backToLogin()">
+        <h1>Orcam Library</h1>
+        <hr>
+    </div>
+
+    <div id="regArea">
+        <h2>Register:</h2>
+        <div id="regDiv">
+            <input type="number" [(ngModel)]="employeeID" placeholder="Employee ID" (input)="resetErrors()">
+            <br>
+            <input type="text" [(ngModel)]="firstName" placeholder="First name" (input)="resetErrors()">
+            <br>
+            <input type="text" [(ngModel)]="lastName" placeholder="Last name" (input)="resetErrors()">
+            <br>
+            <input type="password" [(ngModel)]="passWord" *ngIf="!showPass" placeholder="Password" class="passInput"
+                (input)="resetErrors()">
+            <input type="text" [(ngModel)]="passWord" *ngIf="showPass" placeholder="Password" class="passInput"
+                (input)="resetErrors()">
+            <div id="questionMark" (click)="showHintTgl()">?</div>
+            <br>
+            <span *ngIf="showHint" id="passwordHint">
+                4-12 characters
+            </span>
+            <br>
+            <input type="checkbox" [(ngModel)]="showPass"> show password
+            <br>
+            <button (click)="register()" [disabled]="successMsg">Register</button>
+            <br>
+            <span (click)="backToLogin()" id="backToLogin">back to login</span>
+        </div>
+        <br>
+
+        <!-- Human Verify -->
+        <div class="inline">
+            <br>
+            <div [hidden]="captcha">
+                <p><u>Human Verification</u>:</p>
+                <re-captcha (resolved)="resolved($event)"
+                    siteKey="6LfyjPgkAAAAAJ4Hw2_YpyKLk4jhyi_0enc5aVJp"></re-captcha>
+                <!-- <br> -->
+            </div>
+            <!--  <div [hidden]="!captcha">
+                <br>
+                <p>Human Verified!</p>
+            </div> -->
+        </div>
+        <!-- / Human Verify -->
+
+        <br>
+        <div *ngIf="error"><br>
+            <span class="errorSpn">{{error}}</span>
+        </div>
+        <div *ngIf="successMsg"><br>
+            <span class="successSpn">{{successMsg}}</span>
+        </div>
+    </div>
+
+
+
+
+</div>

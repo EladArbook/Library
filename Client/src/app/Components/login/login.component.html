@@ -1,0 +1,33 @@
+<div id="loginPage">
+
+    <div>
+        <h1 id="header">Orcam Library</h1>
+        <hr>
+    </div>
+
+    <div id="loginArea">
+        <h2>Login:</h2>
+        <div id="loginDiv">
+            <input type="number" [(ngModel)]="employeeID" placeholder="Employee ID" (change)="resetError()" autofocus>
+            <br>
+            <input type="password" [(ngModel)]="passWord" *ngIf="!showPass" placeholder="Password"
+                (change)="resetError()">
+            <input type="text" [(ngModel)]="passWord" *ngIf="showPass" placeholder="Password" (change)="resetError()">
+            <br>
+            <input type="checkbox" [(ngModel)]="showPass"> Show Password
+            <br>
+            <span id="registerBtn" (click)="register()">
+                register
+            </span>
+            <br>
+            <button (click)="login()">Login</button>
+        </div>
+        <br>
+        <div *ngIf="error">
+            <br>
+            <span class="errorSpn">{{error}}</span>
+        </div>
+    </div>
+
+
+</div>

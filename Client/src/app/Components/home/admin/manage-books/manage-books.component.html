@@ -1,0 +1,160 @@
+<br>
+
+<div id="manageMenu" *ngIf="view == 0">
+    <button (click)="changeView(1)">History</button>
+    <button (click)="changeView(2)">Edit</button>
+    <button (click)="changeView(3)">Archive</button>
+</div>
+<div class="mainDiv" *ngIf="view != 0">
+    <div *ngIf="view == 1"> <!-- History -->
+        <h2>History</h2>
+        <hr>
+        <br>
+        <table class="tableResults">
+            <tr>
+                <table class="tableHeadResults">
+                    <tr>
+                        <th>Title</th>
+                        <th>User</th>
+                        <th>Operation</th>
+                        <th>Borrower</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </table>
+            </tr>
+            <div class="divBodyResults">
+                <table class="tableBodyResults">
+                    <tr *ngFor="let oper of historyList" class="trHover">
+                        <td>{{oper.book_name}}</td>
+                        <td>{{oper.user}}</td>
+                        <td [ngClass]="{rightAlign: oper.operation == 4}">{{manageOperation(oper.operation)}}
+                        </td>
+                        <td>{{oper.borrower}}</td>
+                        <td>{{manageDate(oper.date)}}</td>
+                        <td>{{oper.time}}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </table>
+    </div>
+
+    <div *ngIf="view == 2"> <!-- Edit -->
+        <h2>Edit</h2>
+        <label for="inputSearch"><svg class="searchIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                    d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" />
+            </svg>
+            <div id="searchDiv">
+                <input type="text" placeholder="start typing to search" [(ngModel)]="keyWords" (input)="getBookList()"
+                    id="inputSearch">
+                <button *ngIf="keyWords" id="resetSearchBtn" (click)="resetSearch()">x</button>
+
+            </div>
+        </label>
+
+        <hr>
+        <table class="tableResults">
+            <tr>
+                <table class="tableHeadResults">
+                    <tr>
+                        <th>Title</th>
+                        <th>Language</th>
+                        <th>Type</th>
+                        <th>Total Pages</th>
+                        <th>Edit</th>
+                    </tr>
+                </table>
+            </tr>
+            <div class="divBodyResults">
+                <table class="tableBodyResults">
+                    <tr *ngFor="let book of bookList" class="trHover" (click)="selectBook(book.book_id)">
+                        <td>{{book.name}}</td>
+                        <td>{{book.language}}</td>
+                        <td>{{manageType(book.category)}}</td>
+                        <td>{{book.pages}}</td>
+                        <td>
+                            &nbsp;&nbsp;
+                            <button *ngIf="selectedBook == book.book_id"
+                                (click)="editBook(book)">EDIT</button><!--  class="deleteBtn" -->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </table>
+    </div>
+
+    <div *ngIf="view == 4"> <!-- Edit a Book -->
+        <div>
+            Material name:
+            <input type="text" [(ngModel)]="editedBook.name" (input)="resetError()">
+            <br><br>
+
+            Type:
+            <select [(ngModel)]="editedBook.category" (input)="resetError()">
+                <option value="0"></option>
+                <option value="1">Book</option>
+                <option value="2">Magazine</option>
+                <option value="3">Newspaper</option>
+            </select>
+            <br><br>
+
+            Language:
+            <select [(ngModel)]="editedBook.language" (input)="resetError()">
+                <option value="0"></option>
+                <option *ngFor="let lang of languageList" value="{{lang.language_id}}">{{lang.name}}</option>
+            </select>
+            <br><br>
+
+            Total pages:
+            <input type="number" [(ngModel)]="editedBook.pages" (input)="resetError()">
+            <br><br>
+
+            <div class="confirmDiv">
+                <button class="deleteBtn" (click)="changeView(2)">Back to List</button>
+                <button class="confirmBtn" (click)="saveEditBook()">Confirm</button>
+            </div>
+            <br>
+        </div>
+
+        <div *ngIf="error"><br>
+            <span class="errorSpn">{{error}}</span>
+        </div>
+    </div>
+
+    <div *ngIf="view == 3"> <!-- Archive -->
+        <h2>Archive</h2>
+        <hr>
+        <br>
+        <table class="tableResults">
+            <tr>
+                <table class="tableHeadResults">
+                    <tr>
+                        <th>Title</th>
+                        <th>Language</th>
+                        <th>Type</th>
+                        <th>Total Pages</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </table>
+            </tr>
+            <div class="divBodyResults">
+                <table class="tableBodyResults">
+                    <tr *ngFor="let book of archiveList" class="trHover">
+                        <td>{{book.book_name}}</td>
+                        <td>{{book.language}}</td>
+                        <td>{{manageType(book.type)}}</td>
+                        <td>{{book.pages}}</td>
+                        <td>{{manageDate(book.date)}}</td>
+                        <td>{{book.time}}</td>
+                    </tr>
+                </table>
+            </div>
+        </table>
+
+    </div>
+</div>
+<br>
+<button *ngIf="view != 0" class="deleteBtn" (click)="changeView(0)">Back to Admin Menu</button>

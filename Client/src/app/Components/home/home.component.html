@@ -1,0 +1,46 @@
+<div id="layout">
+
+  <div>
+
+    <h1 id="header" (click)="changeView(0)">Orcam Library</h1>
+    <hr>
+    <button id="logOutBtn" (click)="logOut()">
+      Log Out
+    </button>
+    <span id="helloMsg" *ngIf="userName">Hello {{userName}} !</span>
+
+    <div *ngIf="role == 'Admin'" id="adminDiv">
+      <button (click)="manageBooks()">
+        Manage Materials
+      </button>
+      <br><br>
+      <button (click)="manageUsers()">
+        Manage Users
+      </button>
+    </div>
+
+  </div>
+
+  <div id="menu">
+    <button (click)="changeView(1)">
+      Material list
+    </button>
+
+    <button (click)="changeView(2)">
+      Return a Material
+    </button>
+
+    <button (click)="changeView(3)">
+      Borrow a Material
+    </button>
+
+    <button (click)="changeView(4)">
+      Add new Material
+    </button>
+  </div>
+
+  <div id="main">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

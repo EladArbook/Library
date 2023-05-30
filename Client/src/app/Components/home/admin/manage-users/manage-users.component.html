@@ -1,0 +1,98 @@
+<div class="mainDiv">
+    <h2>User List</h2>
+
+    <div *ngIf="userList.length > 0 && historyId == 0">
+        <hr>
+        <div>
+            <br>
+
+            <table class="tableResults">
+                <tr>
+                    <table class="tableHeadResults">
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Status</th>
+                            <th>Block / Unblock</th> <!-- button -->
+                            <th>History</th> <!-- button -->
+                        </tr>
+                    </table>
+                </tr>
+
+                <div class="divBodyResults">
+                    <table class="tableBodyResults">
+                        <tr *ngFor="let user of userList" class="trHover" (click)="selectUser(user.user_id)">
+                            <td>{{user.employee_ID
+                                }}</td>
+                            <td>{{user.first_name}}</td>
+                            <td>{{user.last_name}}</td>
+                            <td>{{user.role}}</td>
+                            <td>
+                                <span *ngIf="selectedUser == user.user_id">
+                                    <span *ngIf="user.role == 'Blocked'">
+                                        <button (click)="manageUser('UNBLOCK', user.user_id, '')">Unblock</button>
+                                    </span>
+                                    <span *ngIf="user.role == 'Active'">
+                                        <button (click)="manageUser('BLOCK', user.user_id, '')">Block</button>
+                                    </span>
+                                     <span *ngIf="user.role == 'Pending'">
+                                    <button
+                                        (click)="manageUser('APPROVE', user.user_id, user.first_name + ' ' + user.last_name)">Approve</button>
+                                </span>
+                                </span>
+                               
+                            </td>
+                            <td><button *ngIf="selectedUser == user.user_id && user.role != 'Pending'"
+                                    (click)="showHistory(user.user_id, user.first_name + ' ' + user.last_name)">Activity</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="historyId > 0">
+        <hr>
+        <h3>{{userName}}</h3>
+        <div *ngIf="historyList.length > 0">
+            <br>
+
+            <table class="tableResults">
+                <tr>
+
+                    <table class="tableHeadResults">
+                        <tr>
+                            <th>Title</th>
+                            <th>Operation</th>
+                            <th>Borrower</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </table>
+                </tr>
+                <div class="divBodyResults">
+                    <table class="tableBodyResults">
+                        <tr *ngFor="let oper of historyList" class="trHover">
+                            <td>{{oper.book_name}}</td>
+                            <td [ngClass]="{rightAlign: oper.operation == 4}">{{manageOperation(oper.operation)}}
+                            </td>
+                            <td>{{oper.borrower}}</td>
+                            <td>{{manageDate(oper.date)}}</td>
+                            <td>{{oper.time}}</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </table>
+        </div>
+        <div *ngIf="historyList.length == 0">
+            This user doesn't have any activity yet.
+        </div>
+        <br>
+        <button class="deleteBtn" (click)="backToList()">Back to List</button>
+    </div>
+
+</div>

@@ -1,0 +1,14 @@
+#postDiv{
+    text-align: right;
+}
+
+#deleteLang{
+    opacity: 0.3;
+}
+
+#deleteLang:hover{
+    opacity: 1;
+    color: black;
+    background-color: red;
+    
+}

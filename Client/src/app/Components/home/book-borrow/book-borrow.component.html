@@ -1,0 +1,115 @@
+<div class="mainDiv">
+    <h2>Borrow a material</h2>
+
+    <label for="inputSearch"><svg class="searchIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+                d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" />
+        </svg>
+        <div id="searchDiv">
+            <input type="text" placeholder="start typing to search" [(ngModel)]="keyWords" (input)="search()"
+                id="inputSearch">
+            <button id="showAllBtn" (click)="showAll()"
+                *ngIf="!keyWords && (!language || language == 0) && (!type || type == 0)">show all</button>
+            <button id="resetSearchBtn" (click)="resetSearch()"
+                *ngIf="keyWords || (language && language != 0) || (type && type != 0)">x</button>
+        </div>
+    </label>
+
+    <!--  <label for="inputSearch" (click)="resetSearch()"><svg class="searchIcon" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512">
+            <path
+                d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" />
+        </svg></label>
+    <input type="text" placeholder="start typing to search" [(ngModel)]="keyWords" (input)="search()" id="inputSearch">
+ -->
+
+    &nbsp;Language:
+    <select [(ngModel)]="language" (change)="search()">
+        <option value={{0}}></option>
+        <option *ngFor="let lang of languageList" value="{{lang.language_id}}">{{lang.name}}</option>
+    </select>
+
+    &nbsp;Type:
+    <select [(ngModel)]="type" (change)="search()">
+        <option value="0"></option>
+        <option value="1">Book</option>
+        <option value="2">Magazine</option>
+        <option value="3">Newspaper</option>
+    </select>
+
+
+    <div *ngIf="bookList.length > 0">
+        <hr>
+
+        <table class="tableResults">
+            <tr>
+                <table class="tableHeadResults">
+                    <tr>
+                        <th>Name</th>
+                        <th>Language</th>
+                        <th>Category</th>
+                        <th>Total pages</th>
+                    </tr>
+                </table>
+            </tr>
+
+            <div class="divBodyResults">
+                <table class="tableBodyResults">
+                    <tr *ngFor="let book of bookList"
+                        (click)="selectBook(book.book_id, book.name, book.language, book.pages)" class="trHover">
+                        <td>{{book.name}}</td>
+                        <td>{{book.language}}</td>
+                        <td>{{manageType(book.category)}}</td>
+                        <td>{{book.pages}}</td>
+                    </tr>
+                </table>
+
+                <br>
+                
+                <div class="pagingDiv" *ngIf="numOfPages > 1">
+                    <div class="pagingRight" (click)="prevPage()"></div>
+                    &nbsp;
+                    {{currentPage}} of {{numOfPages}}
+                    &nbsp;
+                    <div class="pagingLeft" (click)="nextPage()"></div>
+                </div>
+
+            </div>
+        </table>
+
+
+    </div>
+
+
+    <div *ngIf="bookList.length > 0">
+        <hr>
+        <div>
+            <h3>{{selectedBookName ? selectedBookName : "&nbsp;"}}</h3>
+            <br>
+            {{selectedBookLang ? "Language: " + selectedBookLang+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : "Language:
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"}}
+            {{selectedBookPages ? "Total pages: " + selectedBookPages : "Total pages:
+            &nbsp;&nbsp;&nbsp;&nbsp;"}}
+            <br><br>
+
+            Name of the borrower:
+            <input type="text" [(ngModel)]="borrowName" (change)="resetError()" [disabled]="selectedBookId==0">
+            <br><br>
+
+            <div class="confirmDiv">
+                <button class="deleteBtn" (click)="cancelSelection()" [disabled]="!selectedBookId">
+                    Cancel</button>
+                <button class="confirmBtn" (click)="borrowBook()" [disabled]="!selectedBookId">
+                    Confirm</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div *ngIf="error"><br>
+    <span class="errorSpn">{{error}}</span>
+</div>
+<div *ngIf="successMsg"><br>
+    <span class="successSpn">Book borrowed successfully!</span>
+</div>

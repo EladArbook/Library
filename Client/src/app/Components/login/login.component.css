@@ -1,0 +1,44 @@
+#loginPage {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 12% 82%;
+}
+
+#header {
+    text-align: center;
+    cursor: pointer;
+}
+
+#loginArea {
+    text-align: center;
+
+}
+
+#loginDiv {
+    border: 3px solid black;
+    padding: 10px;
+    display: inline-block;
+    line-height: 30px;
+}
+
+button {
+    padding: 5px;
+}
+
+#registerBtn {
+    color: blue;
+    cursor: pointer;
+}
+
+#registerBtn:hover {
+    color: blueviolet
+}
+
+input {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+input[type=checkbox]{
+    margin: 0;
+}

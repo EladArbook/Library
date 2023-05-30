@@ -1,0 +1,77 @@
+#layout {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 12% 8% 80%;
+    overflow: hidden;
+}
+
+#header {
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+#menu {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#menu button {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 90%;
+}
+
+#main {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logOutBtn {
+    background-color: transparent;
+    color: black;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    opacity: 0.5;
+}
+
+#logOutBtn:hover {
+    opacity: 1;
+    background-color: white;
+}
+
+#logOutBtn:active {
+    background-color: rgb(217, 217, 217);
+}
+
+#helloMsg {
+    font-weight: bold;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: block;
+    background-color: rgb(239, 239, 210);
+}
+
+#adminDiv {
+    position: absolute;
+    top: 0px;
+    left: 3px;
+    border: 2px solid black;
+    z-index: 1;
+    padding: 20px;
+    padding-top: 40px;
+    display: none;
+    text-align: center;
+}
+
+#helloMsg:hover+#adminDiv, #adminDiv:hover {
+    display: block;
+}

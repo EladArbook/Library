@@ -1,0 +1,42 @@
+.inputNum {
+    max-width: 60px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 7px;
+}
+
+.tableBodyResults tr {
+    cursor: pointer;
+}
+
+.tableResults {
+    width: 425px;
+}
+
+.tableHeadResults {
+    width: 400px;
+}
+
+.tableHeadResults tr {
+    width: 400px;
+}
+
+.divBodyResults {
+    width: 420px;
+    height: 80px;
+    max-width: 420px;
+    min-width: 420px;
+}
+
+.tableBodyResults {
+    width: 400px;
+}
+
+.pagesDiv {
+    display: inline-block;
+    max-width: 400px;
+    max-height: 100px;
+    overflow: auto;
+}
