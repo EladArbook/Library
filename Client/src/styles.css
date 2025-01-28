@@ -2,7 +2,6 @@ body {
     background-color: rgb(239, 239, 210);
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
-    /*  height: 100vh; */
     cursor: default;
 }
 
@@ -29,7 +28,6 @@ h3 {
 }
 
 button {
-    /*     background-color: rgb(0, 123, 255); */
     background-color: rgb(255, 206, 116);
     border: 2px solid black;
     color: black;
@@ -45,30 +43,11 @@ button:hover {
 
 button:active {
     background-color: rgb(255, 206, 116);
-
     color: white;
-
 }
-
-/* .confirmBtn {
-    color: rgb(0, 0, 0);
-    background-color: rgb(2, 255, 36);
-
-}
-
-.confirmBtn:hover {
-    background-color: rgb(100, 255, 170);
-    color: blue;
-}
-
-.confirmBtn:active {
-    border: 2px solid rgb(148, 148, 148);
-    background-color: rgb(255, 255, 255);
-} */
 
 .deleteBtn {
     color: black;
-    /* background-color: red; */
     background-color: rgb(245, 179, 209);
 }
 
@@ -89,15 +68,12 @@ button:active {
 }
 
 input {
-    /* background-color: rgb(185, 241, 211); */
     background-color: rgb(223, 242, 186);
     border-radius: 4px;
 }
 
 input:focus {
-    /* background-color: rgb(205, 240, 221); */
     background-color: rgb(239, 239, 210);
-
 }
 
 #searchDiv {
@@ -113,7 +89,6 @@ input:focus {
     position: absolute;
     right: 5px;
     top: 0;
-    bottom: 0;
     background-color: black;
     color: white;
     border: none;
@@ -121,8 +96,6 @@ input:focus {
     height: 15px;
     width: 15px;
     line-height: 15px;
-    padding: 0;
-    margin: auto;
     font-size: 12px;
     opacity: 0.3;
 }
@@ -131,22 +104,17 @@ input:focus {
     position: absolute;
     right: 3px;
     top: 0;
-    bottom: 0;
     background-color: black;
     color: white;
     border: none;
     border-radius: 10%;
     height: 15px;
-    /* width: 15px; */
     line-height: 15px;
-    padding: 1px;
-    margin: auto;
     font-size: 9px;
     opacity: 0.3;
 }
 
 select {
-    /* background-color: rgb(185, 241, 211); */
     background-color: rgb(223, 242, 186);
     border-radius: 4px;
 }
@@ -172,14 +140,12 @@ select {
 /* Hide <input:number> arrows */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* Chrome, Safari, Edge, Opera */
     -webkit-appearance: none;
     margin: 0;
 }
 
 input[type=number] {
-    /* Firefox */
-    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 table {
@@ -194,7 +160,7 @@ table {
 }
 
 .tableResults>tr, .tableHeadResulets>tr {
-    border: 0px solid black
+    border: 0px solid black;
 }
 
 .tableHeadResults {
@@ -205,7 +171,6 @@ table {
 .tableHeadResults tr {
     width: 740px;
     background-color: rgb(191, 196, 193);
-    /* delete ? */
 }
 
 .divBodyResults {
@@ -220,11 +185,7 @@ table {
 }
 
 .divBodyResults::-webkit-scrollbar {
-    /*     background-color: rgb(239, 239, 210); */
     background-color: rgb(220, 220, 220);
-    box-sizing: border-box;
-    /* border-right: 2px solid rgb(220, 220, 220);
-    border-left: 2px solid rgb(220, 220, 220); */
     border-right: 3px solid rgb(239, 239, 210);
     border-left: 3px solid rgb(239, 239, 210);
 }
@@ -235,13 +196,10 @@ table {
 
 .divBodyResults::-webkit-scrollbar-thumb {
     background-color: rgb(239, 239, 210);
-    box-sizing: border-box;
     border: 2px solid rgb(220, 220, 220);
-    /* background-color: rgb(220, 220, 220); */
 }
 
 .divBodyResults::-webkit-scrollbar-thumb:hover {
-    /* background-color: rgb(191, 196, 193); */
     background-color: rgb(247, 247, 233);
 }
 
@@ -286,7 +244,6 @@ input[type=checkbox] {
     background-color: rgb(223, 242, 186);
     border-radius: 50%;
     border: 1px solid black;
-    box-sizing: border-box;
     margin: 0;
     display: inline-block;
     cursor: pointer;
@@ -308,23 +265,49 @@ input[type=checkbox]:checked:hover {
     text-align: center;
 }
 
-/* .pagingDiv div { */
-
 .pagingDiv>* {
-    /* transform: rotate(45deg); */
     height: 0px;
     width: 0px;
     border: 10px solid transparent;
-    /* border-top: 5px solid orange; */
     display: inline-block;
     cursor: pointer;
 }
 
 .pagingRight {
     border-right: 10px solid orange;
-
 }
 
 .pagingLeft {
     border-left: 10px solid orange;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .mainDiv {
+        padding: 5px;
+    }
+
+    .tableResults, .tableHeadResults, .tableBodyResults {
+        width: 100%;
+        font-size: 80%;
+    }
+
+    td, th {
+        padding-left: 3px;
+    }
+
+    .divBodyResults {
+        width: 100%;
+        max-width: 100%;
+        height: 200px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    input[type=checkbox], .searchIcon {
+        width: 16px;
+        height: 16px;
+    }
 }

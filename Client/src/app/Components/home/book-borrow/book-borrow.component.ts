@@ -35,8 +35,7 @@ export class BookBorrowComponent {
   ngOnInit() {
     if (this.languageList.length < 1) {//get languages
       this.http.getLanguages().subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) {  //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);
@@ -106,8 +105,7 @@ export class BookBorrowComponent {
       if (localStorage.getItem('userData'))
 
         this.http.borrowBook(book).subscribe(val => {
-          if (val && val.error) {
-            console.log(val.error);
+          if (val && val.error) { //logged out
             if (localStorage.getItem('loginData'))
               localStorage.removeItem('loginData');
             this.router.navigate(['login']);
@@ -165,8 +163,7 @@ export class BookBorrowComponent {
     }
     else
       this.http.searchBooks(this.keyWords, language, this.type, 1).subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) { //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);

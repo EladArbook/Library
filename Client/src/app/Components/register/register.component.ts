@@ -32,8 +32,6 @@ export class RegisterComponent {
   resolved(captchaResponse: string) {
     this.captcha = captchaResponse;
     this.resetErrors();
-
-    //console.log(`resolved captcha with response: '${captchaResponse}'`);//DEL
   }
 
   resetErrors() {

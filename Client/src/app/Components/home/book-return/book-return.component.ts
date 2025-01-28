@@ -34,8 +34,7 @@ export class BookReturnComponent {
   ngOnInit() {
     if (this.languageList.length < 1) {//get languages
       this.http.getLanguages().subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) { //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);
@@ -74,8 +73,7 @@ export class BookReturnComponent {
         title: this.selectedBookName
       };
       this.http.returnBook(book).subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) { //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);
@@ -139,8 +137,7 @@ export class BookReturnComponent {
     }
     else
       this.http.searchBooks(this.keyWords, language, this.type, 2).subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) { //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);

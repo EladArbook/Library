@@ -23,8 +23,7 @@ export class HomeComponent {
         JSON.parse(localStorage['userData']).last_name) {
 
         this.http.validToken().subscribe(val => {
-          if (val && val.valid) {
-            console.log("Welcome back!");
+          if (val && val.valid) { //auto log in
 
             this.userName = JSON.parse(localStorage['userData']).first_name + " " +
               JSON.parse(localStorage['userData']).last_name;
@@ -33,8 +32,7 @@ export class HomeComponent {
               JSON.parse(localStorage['userData']).role == "Admin")
               this.role = "Admin";
           }
-          else {
-            console.log("Session time out");
+          else { //session timed out
             localStorage.removeItem('userData');
             this.router.navigate(['login']);
           }

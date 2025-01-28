@@ -20,14 +20,11 @@ export class BookNewComponent {
   pages: number | undefined; //1-999999
   error: string = "";
   successMsg: boolean = false;
-  /* showPages: boolean = false;
-  devPages: string = "";
-  qaPages: string = ""; */
+
 
   ngOnInit() {
     this.http.getLanguages().subscribe(val => {
-      if (val && val.error) {
-        console.log(val.error);
+      if (val && val.error) { //logged out
         if (localStorage.getItem('loginData'))
           localStorage.removeItem('loginData');
         this.router.navigate(['login']);
@@ -133,8 +130,7 @@ export class BookNewComponent {
       error = "*Language name is too long.";
     if (!error) {
       this.http.addNewLanguage(this.newLanguage).subscribe(async val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) { //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);
@@ -167,8 +163,7 @@ export class BookNewComponent {
       }
     if (confirm(`Remove language ' ${languageName} ' ?`) == true) {
       this.http.deleteLanguage(this.language).subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) { //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);

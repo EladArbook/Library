@@ -81,8 +81,7 @@ export class ManageBooksComponent {
         this.bookList = [];
         this.resetEditedBook();
         this.http.getArchive().subscribe(val => {
-          if (val && val.error) {
-            console.log(val.error);
+          if (val && val.error) {//if logged out
             this.router.navigate(['login']);
             if (localStorage.getItem('loginData'))
               localStorage.removeItem('loginData');
@@ -94,8 +93,7 @@ export class ManageBooksComponent {
         break;
       case 4: //Edit Book (forward from case: 2)
         this.userHttp.getLanguages().subscribe(val => {
-          if (val && val.error) {
-            console.log(val.error);
+          if (val && val.error) { //if logged out
             if (localStorage.getItem('loginData'))
               localStorage.removeItem('loginData');
             this.router.navigate(['login']);
@@ -122,8 +120,7 @@ export class ManageBooksComponent {
     //keyWords, lang, type
     this.userHttp.searchBooks(
       this.keyWords ? this.keyWords : "", "0", 0, 0).subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) {//logged out
           this.router.navigate(['login']);
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
@@ -137,8 +134,7 @@ export class ManageBooksComponent {
   searchHistory() {
     this.http.allHistory().subscribe(val => {
 
-      if (val && val.error) {
-        console.log(val.error);
+      if (val && val.error) { //logged out
         if (localStorage.getItem('loginData'))
           localStorage.removeItem('loginData');
         this.router.navigate(['login']);
@@ -170,8 +166,7 @@ export class ManageBooksComponent {
       if (language && language.name)
         editBook.language = language.name;
       this.http.editBook(editBook).subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) { //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);

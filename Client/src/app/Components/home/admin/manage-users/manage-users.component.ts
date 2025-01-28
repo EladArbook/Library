@@ -27,8 +27,7 @@ export class ManageUsersComponent {
     }
     else {
       this.http.getAllUsers().subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) {//logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);
@@ -48,8 +47,7 @@ export class ManageUsersComponent {
     switch (operation) {
       case "BLOCK":
         this.http.blockUser(userId).subscribe(val => {
-          if (val && val.error) {
-            console.log(val.error);
+          if (val && val.error) { //logged out
             if (localStorage.getItem('loginData'))
               localStorage.removeItem('loginData');
             this.router.navigate(['login']);
@@ -61,8 +59,7 @@ export class ManageUsersComponent {
         break;
       case "UNBLOCK":
         this.http.unblockUser(userId).subscribe(val => {
-          if (val && val.error) {
-            console.log(val.error);
+          if (val && val.error) { //logged out
             if (localStorage.getItem('loginData'))
               localStorage.removeItem('loginData');
             this.router.navigate(['login']);
@@ -75,8 +72,7 @@ export class ManageUsersComponent {
       case "APPROVE":
         if (confirm(`Approve ${userName} ?`) == true) {
           this.http.unblockUser(userId).subscribe(val => {
-            if (val && val.error) {
-              console.log(val.error);
+            if (val && val.error) { //logged out
               if (localStorage.getItem('loginData'))
                 localStorage.removeItem('loginData');
               this.router.navigate(['login']);
@@ -86,9 +82,6 @@ export class ManageUsersComponent {
           });
         }
         break;
-      /* case "APPROVE":
-        console.log("block");
-        break; */
     }
   }
 
@@ -102,8 +95,7 @@ export class ManageUsersComponent {
     if (this.historyId > 0) {
       this.http.userHistory(userName).subscribe(val => {
 
-        if (val && val.error) {
-          console.log(val.error);
+        if (val && val.error) { //logged out
           if (localStorage.getItem('loginData'))
             localStorage.removeItem('loginData');
           this.router.navigate(['login']);
