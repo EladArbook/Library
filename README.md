@@ -1,8 +1,8 @@
- L       III    BBBBB   RRRR    &&&&   RRRR    Y   Y
- L        I     B    B  R   R  &   &   R   R    Y Y
- L        I     BBBBB   RRRR   &   &   RRRR     Y
- L        I     B    B  R  R   &&&&&   R  R     Y
- LLLLL   III    BBBBB   R   R  &   &&  R   R    Y
+ L       III    BBBBB   RRRR    &&&&   RRRR    Y   Y .
+ L        I     B    B  R   R  &   &   R   R    Y Y  .
+ L        I     BBBBB   RRRR   &   &   RRRR     Y    .
+ L        I     B    B  R  R   &&&&&   R  R     Y    .
+ LLLLL   III    BBBBB   R   R  &   &&  R   R    Y    .
   
 Library Management Web Application
 
