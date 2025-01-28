@@ -177,15 +177,20 @@ export class BookReturnComponent {
   generateBorrowerNames() {
     for (let book of this.bookList) {
       if (book.status == 0) {
-        this.http.getBorrowerName(book.book_id).then(val => {
-          if (val && val.error) {
-            console.log(val.error);
-            if (localStorage.getItem('loginData'))
-              localStorage.removeItem('loginData');
-            this.router.navigate(['login']);
-          }
-          else {
-            this.borrowNames.push({ bookId: book.book_id, borrowName: val ? val.borrowerName : "" });
+        this.http.getBorrowerName(book.book_id).subscribe({
+          next: (val) => {
+            if (val?.error) {
+              if (localStorage.getItem('loginData')) {
+                localStorage.removeItem('loginData');
+              }
+              this.router.navigate(['login']);
+            } else {
+              this.borrowNames.push({ bookId: book.book_id, borrowName: val?.borrowerName || "" });
+            }
+          },
+          error: () => {
+            // Error already logged in service, handle only if needed
+            console.warn(`Failed to fetch borrower name for book ID ${book.book_id}`);
           }
         });
       }

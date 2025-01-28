@@ -146,7 +146,7 @@ export class BookListComponent {
         this.getOverallInfo(bookList); */
 
         //page:
-        
+
         this.numOfPages = Math.ceil(val.bookList.length / environment.booksPerPageList);
         let start = environment.booksPerPageList * (this.currentPage - 1);
         let end = start + environment.booksPerPageList;
@@ -184,71 +184,78 @@ export class BookListComponent {
   generateBorrowerNames() {
     for (let book of this.bookList) {
       if (book.status == 0) {
-        this.http.getBorrowerName(book.book_id).then(val => {
-          if (val && val.error) {
-            console.log(val.error);
-            if (localStorage.getItem('loginData'))
-              localStorage.removeItem('loginData');
-            this.router.navigate(['login']);
-          }
-          else {
-            if (val?.borrowerName)
-              this.borrowNames.push({ bookId: book.book_id, borrowName: val ? val.borrowerName : "" });
+        this.http.getBorrowerName(book.book_id).subscribe({
+          next: (val) => {
+            if (val?.error) {
+              if (localStorage.getItem('loginData')) {
+                localStorage.removeItem('loginData');
+              }
+              this.router.navigate(['login']);
+            } else if (val?.borrowerName) {
+              this.borrowNames.push({ bookId: book.book_id, borrowName: val.borrowerName });
+            }
+          },
+          error: () => {
+            console.warn('An error occurred while fetching the borrower name.');
           }
         });
       }
     }
   }
 
-  getBorrowerName(bookId: number) {
-    let book = this.borrowNames.find(book => book.bookId == bookId);
-    return book?.borrowName;
+
+
+getBorrowerName(bookId: number) {
+  let book = this.borrowNames.find(book => book.bookId == bookId);
+  return book?.borrowName;
+}
+
+
+
+manageLanguage() {
+  const i = this.languageList.find(lang => lang.language_id == this.language);
+  return (i && i.name) ? i.name : "0";
+}
+
+
+
+deleteBook(bookId: number, name: string) {
+  if (confirm(`Delete ${name} ?`) == true) {
+    let userName = JSON.parse(localStorage['userData']).first_name + " " + JSON.parse(localStorage['userData']).last_name;
+    this.http.deleteBook(bookId, userName).subscribe(val => {
+      if (val && val.error) {
+        console.log(val.error);
+        if (localStorage.getItem('loginData'))
+          localStorage.removeItem('loginData');
+        this.router.navigate(['login']);
+      }
+      else {
+        this.search();
+      }
+    });
   }
+}
 
 
 
-  manageLanguage() {
-    const i = this.languageList.find(lang => lang.language_id == this.language);
-    return (i && i.name) ? i.name : "0";
-  }
-
-  deleteBook(bookId: number, name: string) {
-    if (confirm(`Delete ${name} ?`) == true) {
-      let userName = JSON.parse(localStorage['userData']).first_name + " " + JSON.parse(localStorage['userData']).last_name;
-      this.http.deleteBook(bookId, userName).subscribe(val => {
-        if (val && val.error) {
-          console.log(val.error);
-          if (localStorage.getItem('loginData'))
-            localStorage.removeItem('loginData');
-          this.router.navigate(['login']);
-        }
-        else {
-          this.search();
-        }
-      });
-    }
-  }
-
-  manageStatus(statusId: number): string {
-    if (statusId == 1)
-      return "Available";
-    else
-      return "Taken";
-  }
-
-  manageType(typeId: number): string {
-    if (typeId == 1)
-      return "Book";
-    else if (typeId == 2)
-      return "Magazine";
-    else if (typeId == 3)
-      return "Newspaper";
-    return "";
-  }
+manageStatus(statusId: number): string {
+  if (statusId == 1)
+    return "Available";
+  else
+    return "Taken";
+}
 
 
 
-
+manageType(typeId: number): string {
+  if (typeId == 1)
+    return "Book";
+  else if (typeId == 2)
+    return "Magazine";
+  else if (typeId == 3)
+    return "Newspaper";
+  return "";
+}
 
 
 
