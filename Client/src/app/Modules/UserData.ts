@@ -5,3 +5,4 @@ interface UserData {
     token: string;
 }
 export default UserData;
+
